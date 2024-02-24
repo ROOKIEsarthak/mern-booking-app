@@ -3,9 +3,6 @@ import { app } from "./app";
 import connectDb from "./db";
 const port = process.env.PORT || 8000
 
-
-
-
 connectDb().then(()=>{
 
     try {

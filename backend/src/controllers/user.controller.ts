@@ -61,7 +61,7 @@ const registerUser = asyncHandler(async(req:Request , res:Response) =>{
         // ---> creating  a jwt token and cookie for authentication
 
         const token = jwt.sign(
-            { newUserId: newUser.id },
+            { newUserId: newUser._id },
             process.env.JWT_SECRET_KEY as string,{
                 expiresIn:"1d"
             }
@@ -90,19 +90,19 @@ const registerUser = asyncHandler(async(req:Request , res:Response) =>{
 const loginUser = asyncHandler(async(req:Request,res:Response)=>{
 
     
-    const {email,username,password} = req.body;
+    const {email,password} = req.body;
 
     try {
 
         // --> check if user present or not in the database
 
-        if(!(username || email))
+        if(!(email))
         {
             throw new ApiError(400, " Username or Email is required")
         }
 
         const user = await User.findOne({
-            $or:[{email},{username}]
+            $or:[{email}]
         })
 
         if(!user){
@@ -118,7 +118,7 @@ const loginUser = asyncHandler(async(req:Request,res:Response)=>{
         }
 
         const token = jwt.sign(
-            {userID: user._id},
+            {userId: user.id},
             process.env.JWT_SECRET_KEY as string,{
                 expiresIn:"1d"
             }
@@ -144,9 +144,18 @@ const loginUser = asyncHandler(async(req:Request,res:Response)=>{
     
 })
 
+const logoutUser = asyncHandler(async(req:Request,res:Response)=>{
+    res.cookie("auth_token"," ",{
+        expires: new Date (0),
+    })
+    res.send();
+
+})
+
 
 export {
     testUser,
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
