@@ -24,9 +24,11 @@ app.use(express.static(path.join(__dirname,"../../frontend/dist")))
 
 // --> Routes import 
 
-import UserRoutes from './routes/userRoutes'
+import userRoutes from './routes/userRoutes'
+import myHotelRoutes from './routes/myHotelRoutes'
 
-app.use('/api/users',UserRoutes)
+app.use('/api/users',userRoutes)   // ---> user routes
+app.use('api/my-hotels',myHotelRoutes) // --> my hotel routes
 
 
 
