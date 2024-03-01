@@ -21,7 +21,12 @@ export type HotelFormData={
 
 }
 
-const ManageHotelForm = () => {
+type Props = {
+  onSave:(hotelFormData:FormData)=> void
+  isLoading:boolean
+}
+// 
+const ManageHotelForm = ({onSave, isLoading}:Props) => {
 
     const formMethods = useForm<HotelFormData>();
 
@@ -44,10 +49,12 @@ const ManageHotelForm = () => {
       formDataJson.facilities.forEach((facility,index)=>{
         formData.append(`facilities[${index}]`,facility)
       })
-      
+    
       Array.from(formDataJson.imageFiles).forEach((imageFile)=>{
         formData.append(`imageFiles`,imageFile);
       });
+
+      onSave(formData)
 
     });
   return (
@@ -60,9 +67,12 @@ const ManageHotelForm = () => {
             <ImageSection/>
             <span className="flex justify-end">
               <button 
+              disabled={isLoading}
               type="submit" 
-              className="bg-blue-800 text-white p-2 font-bold hover:bg-blue-600 text-xl"
-              >Save</button>
+              className="bg-blue-800 text-white p-2 font-bold hover:bg-blue-600 text-xl disabled:bg-gray-500"
+              >
+                {isLoading?"Saving...":"Save"}
+              </button>
             </span>
         </form>
     </FormProvider>
@@ -71,3 +81,11 @@ const ManageHotelForm = () => {
 }
 
 export default ManageHotelForm
+
+
+
+
+
+
+
+// 'Fira Code','Cascadia Code' , monospace, 'Droid Sans Fallback'

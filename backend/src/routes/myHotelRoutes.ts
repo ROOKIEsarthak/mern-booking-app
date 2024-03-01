@@ -2,9 +2,7 @@
 // this is the hotel route for user to seach and navigate through his hotels
 
 
-import express from 'express'
 import { Router ,Request,Response, NextFunction} from "express";
-import {User} from "../models/user.model";
 import { myHotels } from '../controllers/myHotel.controller';
 import { upload } from '../middlewares/multer.middleware';
 import verifyToken from '../middlewares/auth.middleware';

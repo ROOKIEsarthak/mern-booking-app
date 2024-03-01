@@ -72,3 +72,20 @@ export const signOut = async()=>{
     }
 
 }
+
+// add my hotel function
+export const addMyHotel = async(hotelFormData:FormData)=>{
+
+    const response = await fetch(`${API_BASE_URL}/api/my-hotels`,{
+        method:"POST",
+        credentials:"include",
+        body: hotelFormData,
+    })
+    
+    
+    if(!response.ok){
+        throw new Error("Error in add Hotel API")
+    }
+
+    return response.json();
+}
