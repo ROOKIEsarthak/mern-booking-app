@@ -7,6 +7,8 @@ import { Router ,Request,Response, NextFunction} from "express";
 import { 
     addMyHotels,
     getMyHotels,
+    updateHotelImages,
+    updateMyHotels,
 } from '../controllers/myHotel.controller';
 
 import { upload } from '../middlewares/multer.middleware';
@@ -30,8 +32,12 @@ router.route("/").post(verifyToken,[
 
 ],upload.array("imageFiles",6),addMyHotels)
 
-// # This is the endpoint for the user to get and edit his hotels on the website
 
+// # This is the endpoint for the user to get his hotels on the website
 router.route("/").get(verifyToken,getMyHotels)
+
+router.route("/:id").get(verifyToken,updateMyHotels)
+
+router.route("/:hotelId").put(verifyToken,upload.array("imageFiles"),updateHotelImages)
 
 export default router
