@@ -1,4 +1,4 @@
-import { HotelFormData } from './forms/ManageHotelForm/ManageHotelForm';
+
 
 import { HotelType } from './../../backend/src/shared/types';
 import { RegisterFormData } from "./pages/Register";
