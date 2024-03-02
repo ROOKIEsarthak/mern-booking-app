@@ -14,7 +14,7 @@ export type HotelFormData={
     country: string;
     description: string;
     type: string;
-    pricePerNight: string;
+    pricePerNight: number;
     starRating: number;
     facilities: string[];
     imageFiles: FileList;
