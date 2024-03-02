@@ -3,14 +3,19 @@
 
 
 import { Router ,Request,Response, NextFunction} from "express";
-import { myHotels } from '../controllers/myHotel.controller';
+
+import { 
+    addMyHotels,
+    getMyHotels,
+} from '../controllers/myHotel.controller';
+
 import { upload } from '../middlewares/multer.middleware';
 import verifyToken from '../middlewares/auth.middleware';
 import { body } from 'express-validator';
 
 const router = Router()
 
-// api/my-hotels --> endpoint
+// api/my-hotels --> endpoint  #This is the endpoint for user to register his hotel on the website
 router.route("/").post(verifyToken,[
 
     body("name").notEmpty().withMessage("Name is required"),
@@ -23,6 +28,10 @@ router.route("/").post(verifyToken,[
     body("facility").notEmpty().isArray().withMessage("Facilities is required"),
 
 
-],upload.array("imageFiles",6),myHotels)
+],upload.array("imageFiles",6),addMyHotels)
+
+// # This is the endpoint for the user to get and edit his hotels on the website
+
+router.route("/").get(verifyToken,getMyHotels)
 
 export default router

@@ -8,13 +8,14 @@ import { Request,Response } from "express";
 import bcrypt from "bcryptjs"
 import cloudinary from "cloudinary"
 import { HotelType ,Hotel} from '../models/hotel.model';
+import { waitForDebugger } from 'inspector';
 
 
 
 
 
 
-const myHotels = asyncHandler(async(req:Request,res:Response)=>{
+const addMyHotels = asyncHandler(async(req:Request,res:Response)=>{
 
     try {
         const imageFiles = req.files as Express.Multer.File[]
@@ -61,4 +62,22 @@ const myHotels = asyncHandler(async(req:Request,res:Response)=>{
     }
 })
 
-export {myHotels}
+const getMyHotels = asyncHandler(async(req:Request,res:Response)=>{
+
+    try {
+
+        const hotels = await Hotel.find({userId: req.userId})
+        res.json(hotels);
+
+    } catch (error) {
+        res.status(500).json({message:"Error fetching Hotels"})
+        
+    }
+
+
+})
+
+export {
+    addMyHotels,
+    getMyHotels,
+}
