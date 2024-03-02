@@ -7,7 +7,8 @@ import { User } from "../models/user.model";
 import { Request,Response } from "express";
 import bcrypt from "bcryptjs"
 import cloudinary from "cloudinary"
-import { HotelType ,Hotel} from '../models/hotel.model';
+import { Hotel} from '../models/hotel.model';
+import { HotelType } from '../shared/types';
 import { waitForDebugger } from 'inspector';
 
 
